@@ -7,10 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * This class purpose is to find the shortest way between to cells of a grid.
- * Each cell has a weight which represents the cost of moving on that case.
- * The cells whose weight is equal to constant value UNREACHABLE are avoided and cannot
- * be part of the resulting path.
+ * This class purpose is to find the shortest way between to vertices of a graph.
  */
 public class PathFinder {
 
