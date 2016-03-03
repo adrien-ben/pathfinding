@@ -8,17 +8,17 @@ import java.util.List;
  */
 public class Path {
 
-    private final List<Node> nodes = new ArrayList<>();
+    private final List<Position> positions = new ArrayList<>();
 
-    public void addNode(Node node) {
-        nodes.add(node);
+    public void addPosition(Position position) {
+        positions.add(position);
     }
 
     public Integer getSize() {
-        return nodes.size();
+        return positions.size();
     }
 
-    public List<Node> getNodes() {
-        return nodes;
+    public List<Position> getPositions() {
+        return positions;
     }
 }

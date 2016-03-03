@@ -10,9 +10,9 @@ import java.util.Map;
  */
 public class GraphTest {
 
-    private static final Vertex VERTEX0 = new Vertex("V0");
-    private static final Vertex VERTEX1 = new Vertex("V1");
-    private static final Vertex VERTEX2 = new Vertex("V2");
+    private static final Vertex VERTEX0 = new Vertex("V0", 0, 0);
+    private static final Vertex VERTEX1 = new Vertex("V1", 0, 1);
+    private static final Vertex VERTEX2 = new Vertex("V2", 0, 2);
     private static final Edge EDGE0 = new Edge(0);
     private static final Edge EDGE1 = new Edge(1);
 

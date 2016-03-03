@@ -1,5 +1,8 @@
 package com.adrien.games.pathfinding;
 
+import com.adrien.games.pathfinding.graph.Edge;
+import com.adrien.games.pathfinding.graph.Graph;
+import com.adrien.games.pathfinding.graph.Vertex;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,93 +15,60 @@ public class PathFinderTest {
 
     @Test
     public void itShouldFindShortestPath() {
-        Node start = new Node("start", 0, 0);
-        Node goal = new Node("end", 2, 0);
-        Node a = new Node("a", 0, 2);
-        Node b = new Node("b", 1, 2);
-        Node c = new Node("c", 2, 2);
-        Node d = new Node("d", 0, 1);
-        Node e = new Node("e", 1, 1);
-        Node f = new Node("f", 2, 1);
+        Graph graph = new Graph();
 
-        a.addNeighbor(b, 1);
-        a.addNeighbor(d, 1);
-        b.addNeighbor(a, 1);
-        b.addNeighbor(c, 1);
-        b.addNeighbor(e, 1);
-        c.addNeighbor(b, 1);
-        c.addNeighbor(f, 1);
-        d.addNeighbor(a, 1);
-        d.addNeighbor(e, 1);
-        d.addNeighbor(start, 1);
-        e.addNeighbor(b, 1);
-        e.addNeighbor(d, 1);
-        e.addNeighbor(f, 1);
-        f.addNeighbor(c, 1);
-        f.addNeighbor(e, 1);
-        f.addNeighbor(goal, 1);
-        start.addNeighbor(d, 1);
-        goal.addNeighbor(f, 1);
+        Vertex start = new Vertex("start", 0, 0);
+        Vertex goal = new Vertex("end", 2, 0);
+        Vertex a = new Vertex("a", 0, 2);
+        Vertex b = new Vertex("b", 1, 2);
+        Vertex c = new Vertex("c", 2, 2);
+        Vertex d = new Vertex("d", 0, 1);
+        Vertex e = new Vertex("e", 1, 1);
+        Vertex f = new Vertex("f", 2, 1);
 
-        Path path = pathFinder.findPath(start, goal);
+        graph.addVertex(start);
+        graph.addVertex(goal);
+        graph.addVertex(a);
+        graph.addVertex(b);
+        graph.addVertex(c);
+        graph.addVertex(d);
+        graph.addVertex(e);
+        graph.addVertex(f);
+
+        graph.addEdge(a, b, new Edge(1));
+        graph.addEdge(a, d, new Edge(1));
+        graph.addEdge(b, a, new Edge(1));
+        graph.addEdge(b, c, new Edge(1));
+        graph.addEdge(b, e, new Edge(1));
+        graph.addEdge(c ,b , new Edge(1));
+        graph.addEdge(c ,f , new Edge(1));
+        graph.addEdge(d ,a , new Edge(1));
+        graph.addEdge(d ,e , new Edge(1));
+        graph.addEdge(d ,start , new Edge(1));
+        graph.addEdge(e ,b , new Edge(1));
+        graph.addEdge(e ,d , new Edge(1));
+        graph.addEdge(e ,f , new Edge(1));
+        graph.addEdge(f ,c , new Edge(1));
+        graph.addEdge(f ,e , new Edge(1));
+        graph.addEdge(f ,goal , new Edge(1));
+        graph.addEdge(start, d, new Edge(1));
+        graph.addEdge(goal, f, new Edge(1));
+
+        Path path = pathFinder.findPath(graph, start, goal);
 
         Assert.assertNotNull(path);
         Assert.assertEquals(Integer.valueOf(5), path.getSize());
-        Assert.assertEquals("start", path.getNodes().get(0).getId());
-        Assert.assertEquals("d", path.getNodes().get(1).getId());
-        Assert.assertEquals("e", path.getNodes().get(2).getId());
-        Assert.assertEquals("f", path.getNodes().get(3).getId());
-        Assert.assertEquals("end", path.getNodes().get(4).getId());
-
+        Assert.assertEquals(Integer.valueOf(0), path.getPositions().get(0).getX());
+        Assert.assertEquals(Integer.valueOf(0), path.getPositions().get(0).getY());
+        Assert.assertEquals(Integer.valueOf(0), path.getPositions().get(1).getX());
+        Assert.assertEquals(Integer.valueOf(1), path.getPositions().get(1).getY());
+        Assert.assertEquals(Integer.valueOf(1), path.getPositions().get(2).getX());
+        Assert.assertEquals(Integer.valueOf(1), path.getPositions().get(2).getY());
+        Assert.assertEquals(Integer.valueOf(2), path.getPositions().get(3).getX());
+        Assert.assertEquals(Integer.valueOf(1), path.getPositions().get(3).getY());
+        Assert.assertEquals(Integer.valueOf(2), path.getPositions().get(4).getX());
+        Assert.assertEquals(Integer.valueOf(0), path.getPositions().get(4).getY());
     }
 
-    @Test
-    public void itShouldFindShortestPath2() {
-        Node start = new Node("start", 0, 0);
-        Node goal = new Node("end", 2, 0);
-        Node a = new Node("a", 0, 2);
-        Node b = new Node("b", 1, 2);
-        Node c = new Node("c", 2, 2);
-        Node d = new Node("d", 0, 1);
-        Node e = new Node("e", 1, 1);
-        Node f = new Node("f", 2, 1);
-
-        a.addNeighbor(b, 1);
-        a.addNeighbor(d, 1);
-        b.addNeighbor(a, 1);
-        b.addNeighbor(c, 1);
-        b.addNeighbor(e, 1);
-        c.addNeighbor(b, 1);
-        c.addNeighbor(f, 1);
-        d.addNeighbor(a, 1);
-        d.addNeighbor(e, 1);
-        d.addNeighbor(start, 1);
-        e.addNeighbor(b, 1);
-        e.addNeighbor(d, 1);
-        f.addNeighbor(c, 1);
-        f.addNeighbor(e, 1);
-        f.addNeighbor(goal, 1);
-        start.addNeighbor(d, 1);
-        goal.addNeighbor(f, 1);
-
-        Path path = pathFinder.findPath(start, goal);
-
-        Assert.assertNotNull(path);
-        Assert.assertEquals(Integer.valueOf(7), path.getSize());
-        Assert.assertEquals("start", path.getNodes().get(0).getId());
-        Assert.assertEquals("d", path.getNodes().get(1).getId());
-        Assert.assertEquals("e", path.getNodes().get(2).getId());
-        Assert.assertEquals("b", path.getNodes().get(3).getId());
-        Assert.assertEquals("c", path.getNodes().get(4).getId());
-        Assert.assertEquals("f", path.getNodes().get(5).getId());
-        Assert.assertEquals("end", path.getNodes().get(6).getId());
-    }
-
-    @Test
-    public void itShouldNotFindAnyPath() {
-        Path path = pathFinder.findPath(new Node("start", 0, 0), new Node("goal", 0, 1));
-        Assert.assertNotNull(path);
-        Assert.assertEquals(Integer.valueOf(0), path.getSize());
-    }
 
 }

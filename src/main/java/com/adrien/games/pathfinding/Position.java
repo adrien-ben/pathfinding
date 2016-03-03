@@ -1,0 +1,31 @@
+package com.adrien.games.pathfinding;
+
+/**
+ * Class representing a position in a path.
+ */
+public class Position {
+
+    private Integer x;
+    private Integer y;
+
+    public Position(Integer x, Integer y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public Integer getX() {
+        return x;
+    }
+
+    public void setX(Integer x) {
+        this.x = x;
+    }
+
+    public Integer getY() {
+        return y;
+    }
+
+    public void setY(Integer y) {
+        this.y = y;
+    }
+}

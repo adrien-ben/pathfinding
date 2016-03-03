@@ -11,9 +11,13 @@ import java.util.Objects;
 public class Vertex {
 
     private final String id;
+    private Integer x;
+    private Integer y;
 
-    public Vertex(String id) {
+    public Vertex(String id, Integer x, Integer y) {
         this.id = Objects.requireNonNull(id);
+        this.x = Objects.requireNonNull(x);
+        this.y = Objects.requireNonNull(y);
     }
 
     @Override
@@ -42,5 +46,21 @@ public class Vertex {
 
     public String getId() {
         return id;
+    }
+
+    public Integer getX() {
+        return x;
+    }
+
+    public void setX(Integer x) {
+        this.x = Objects.requireNonNull(x);
+    }
+
+    public Integer getY() {
+        return y;
+    }
+
+    public void setY(Integer y) {
+        this.y = Objects.requireNonNull(y);
     }
 }
