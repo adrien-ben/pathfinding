@@ -32,7 +32,7 @@ public class Graph {
      * Multiple edges between two vertices are not supported.
      * @param source The source vertex.
      * @param target The target vertex
-     * @param edge
+     * @param edge The edge to add.
      */
     public void addEdge(Vertex source, Vertex target, Edge edge) {
         Objects.requireNonNull(source);
