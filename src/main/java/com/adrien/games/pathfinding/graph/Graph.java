@@ -7,16 +7,16 @@ import java.util.Objects;
 /**
  * Class representing a graph.
  */
-public class Graph {
+public class Graph<T> {
 
-    private final Map<Vertex, Map<Vertex, Edge>> graph = new HashMap<>();
+    private final Map<T, Map<T, Edge>> graph = new HashMap<>();
 
     /**
      * Adds a vertex to the graph.
      * The vertex must not be already present in graph.
      * @param vertex The vertex to add.
      */
-    public void addVertex(Vertex vertex) {
+    public void addVertex(T vertex) {
         Objects.requireNonNull(vertex);
         if(containsVertex(vertex)) {
             throw new IllegalArgumentException("Impossible to add vertex '" + vertex + "'. Vertex already in graph.");
@@ -32,7 +32,7 @@ public class Graph {
      * @param target The target vertex
      * @param edge The edge to add.
      */
-    public void addEdge(Vertex source, Vertex target, Edge edge) {
+    public void addEdge(T source, T target, Edge edge) {
         Objects.requireNonNull(source);
         Objects.requireNonNull(target);
         Objects.requireNonNull(edge);
@@ -51,7 +51,7 @@ public class Graph {
      * @param vertex The vertex from which to get connected vertices.
      * @return A map associating the connected vertices and the edge.
      */
-    public Map<Vertex, Edge> getNeighbors(Vertex vertex) {
+    public Map<T, Edge> getNeighbors(T vertex) {
         if(!containsVertex(vertex)) {
             throw new IllegalArgumentException("Impossible to find neighbors for vertex '" + vertex + "'. Vertex must be in graph.");
         }
@@ -63,7 +63,7 @@ public class Graph {
      * @param vertex The vertex to check.
      * @return True if contained, false otherwise.
      */
-    public Boolean containsVertex(Vertex vertex) {
+    public Boolean containsVertex(T vertex) {
         Objects.requireNonNull(vertex);
         return graph.containsKey(vertex);
     }
@@ -75,7 +75,7 @@ public class Graph {
      * @param target The target vertex.
      * @return True if connected, false otherwise.
      */
-    public Boolean hasEdge(Vertex source, Vertex target) {
+    public Boolean hasEdge(T source, T target) {
         Objects.requireNonNull(source);
         Objects.requireNonNull(target);
         if(!containsVertex(source) || !containsVertex(target)) {

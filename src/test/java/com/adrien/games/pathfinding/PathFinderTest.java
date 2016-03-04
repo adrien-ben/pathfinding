@@ -1,10 +1,12 @@
 package com.adrien.games.pathfinding;
 
+import com.adrien.games.pathfinding.commons.Position;
 import com.adrien.games.pathfinding.graph.Edge;
 import com.adrien.games.pathfinding.graph.Graph;
-import com.adrien.games.pathfinding.graph.Vertex;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.List;
 
 /**
  * Test class for {@link PathFinder}.
@@ -15,16 +17,16 @@ public class PathFinderTest {
 
     @Test
     public void itShouldFindShortestPath() {
-        Graph graph = new Graph();
+        Graph<Position> graph = new Graph<>();
 
-        Vertex start = new Vertex("start", 0, 0);
-        Vertex goal = new Vertex("end", 2, 0);
-        Vertex a = new Vertex("a", 0, 2);
-        Vertex b = new Vertex("b", 1, 2);
-        Vertex c = new Vertex("c", 2, 2);
-        Vertex d = new Vertex("d", 0, 1);
-        Vertex e = new Vertex("e", 1, 1);
-        Vertex f = new Vertex("f", 2, 1);
+        Position start = new Position(0, 0);
+        Position goal = new Position(2, 0);
+        Position a = new Position(0, 2);
+        Position b = new Position(1, 2);
+        Position c = new Position(2, 2);
+        Position d = new Position(0, 1);
+        Position e = new Position(1, 1);
+        Position f = new Position(2, 1);
 
         graph.addVertex(start);
         graph.addVertex(goal);
@@ -54,20 +56,19 @@ public class PathFinderTest {
         graph.addEdge(start, d, new Edge(1));
         graph.addEdge(goal, f, new Edge(1));
 
-        Path path = pathFinder.findPath(graph, start, goal);
+        List<Position> path = pathFinder.findPath(
+                graph,
+                start,
+                goal,
+                (position, position2) -> Math.abs(position2.getX() - position.getX()) + Math.abs(position2.getY() - position.getY()));
 
         Assert.assertNotNull(path);
-        Assert.assertEquals(Integer.valueOf(5), path.getSize());
-        Assert.assertEquals(Integer.valueOf(0), path.getPositions().get(0).getX());
-        Assert.assertEquals(Integer.valueOf(0), path.getPositions().get(0).getY());
-        Assert.assertEquals(Integer.valueOf(0), path.getPositions().get(1).getX());
-        Assert.assertEquals(Integer.valueOf(1), path.getPositions().get(1).getY());
-        Assert.assertEquals(Integer.valueOf(1), path.getPositions().get(2).getX());
-        Assert.assertEquals(Integer.valueOf(1), path.getPositions().get(2).getY());
-        Assert.assertEquals(Integer.valueOf(2), path.getPositions().get(3).getX());
-        Assert.assertEquals(Integer.valueOf(1), path.getPositions().get(3).getY());
-        Assert.assertEquals(Integer.valueOf(2), path.getPositions().get(4).getX());
-        Assert.assertEquals(Integer.valueOf(0), path.getPositions().get(4).getY());
+        Assert.assertEquals(5, path.size());
+        Assert.assertEquals(start, path.get(0));
+        Assert.assertEquals(d, path.get(1));
+        Assert.assertEquals(e, path.get(2));
+        Assert.assertEquals(f, path.get(3));
+        Assert.assertEquals(goal, path.get(4));
     }
 
 
