@@ -9,8 +9,7 @@ import java.util.Objects;
  */
 public class Graph {
 
-    private final Map<String, Vertex> vertices = new HashMap<>();
-    private final Map<Vertex, Map<Vertex, Edge>> connections = new HashMap<>();
+    private final Map<Vertex, Map<Vertex, Edge>> graph = new HashMap<>();
 
     /**
      * Adds a vertex to the graph.
@@ -22,8 +21,7 @@ public class Graph {
         if(containsVertex(vertex)) {
             throw new IllegalArgumentException("Impossible to add vertex '" + vertex + "'. Vertex already in graph.");
         }
-        vertices.put(vertex.getId(), vertex);
-        connections.put(vertex, new HashMap<>());
+        graph.put(vertex, new HashMap<>());
     }
 
     /**
@@ -44,7 +42,7 @@ public class Graph {
         if(hasEdge(source, target)) {
             throw new IllegalArgumentException("Impossible to add edge '" + edge + "' between vertices '" + source + "' and '" + target + "''. Multiple edges are not supported.");
         }
-        connections.get(source).put(target, edge);
+        graph.get(source).put(target, edge);
     }
 
     /**
@@ -57,7 +55,7 @@ public class Graph {
         if(!containsVertex(vertex)) {
             throw new IllegalArgumentException("Impossible to find neighbors for vertex '" + vertex + "'. Vertex must be in graph.");
         }
-        return connections.get(vertex);
+        return graph.get(vertex);
     }
 
     /**
@@ -67,7 +65,7 @@ public class Graph {
      */
     public Boolean containsVertex(Vertex vertex) {
         Objects.requireNonNull(vertex);
-        return vertices.containsKey(vertex.getId());
+        return graph.containsKey(vertex);
     }
 
     /**
@@ -83,6 +81,6 @@ public class Graph {
         if(!containsVertex(source) || !containsVertex(target)) {
             throw new IllegalArgumentException("Impossible to find an edge between vertices '" + source + "' and '" + target + "'. Both vertices must be in the graph.");
         }
-        return connections.get(source).containsKey(target);
+        return graph.get(source).containsKey(target);
     }
 }
