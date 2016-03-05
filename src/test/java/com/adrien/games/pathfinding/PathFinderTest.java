@@ -3,6 +3,7 @@ package com.adrien.games.pathfinding;
 import com.adrien.games.pathfinding.commons.Position;
 import com.adrien.games.pathfinding.graph.Edge;
 import com.adrien.games.pathfinding.graph.Graph;
+import javafx.geometry.Pos;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -71,5 +72,20 @@ public class PathFinderTest {
         Assert.assertEquals(goal, path.get(4));
     }
 
+    @Test
+    public void itShouldReturnEmptyListWhenThereIsNoPath() {
+        Graph<Position> graph = new Graph<>();
+        Position vertex0 = new Position(0, 0);
+        Position vertex1 = new Position(0, 1);
+        graph.addVertex(vertex0);
+        graph.addVertex(vertex1);
+        List<Position> path = pathFinder.findPath(
+                graph,
+                vertex0,
+                vertex1,
+                (position, position2) -> Math.abs(position2.getX() - position.getX()) + Math.abs(position2.getY() - position.getY()));
+        Assert.assertNotNull(path);
+        Assert.assertTrue(path.isEmpty());
+    }
 
 }
