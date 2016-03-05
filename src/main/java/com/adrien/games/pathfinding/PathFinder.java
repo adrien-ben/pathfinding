@@ -15,6 +15,7 @@ public class PathFinder {
         Objects.requireNonNull(graph);
         Objects.requireNonNull(start);
         Objects.requireNonNull(goal);
+        Objects.requireNonNull(heuristicFunction);
         List<T> path = new ArrayList<>();
         NavigableSet<Node<T>> openedList = new TreeSet<>((node1, node2) -> node1.getScore() - node2.getScore() <= 0 ? -1 : 1);
         openedList.add(new Node<>(0, 0, null, start));
