@@ -3,8 +3,6 @@ package com.adrien.games.pathfinding.commons;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import java.util.Date;
-
 /**
  * Class representing a position in a path.
  */
