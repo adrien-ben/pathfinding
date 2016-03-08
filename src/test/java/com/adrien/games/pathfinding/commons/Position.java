@@ -3,6 +3,8 @@ package com.adrien.games.pathfinding.commons;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import java.util.Date;
+
 /**
  * Class representing a position in a path.
  */
@@ -14,6 +16,15 @@ public class Position {
     public Position(Integer x, Integer y) {
         this.x = x;
         this.y = y;
+    }
+
+    /**
+     * Compute the manhattan distance between this and another position.
+     * @param other An other position.
+     * @return The distance between the positions.
+     */
+    public Double computeManhattanDistance(Position other) {
+        return (double)Math.abs(other.getY() - getY()) + Math.abs(other.getX() - getX());
     }
 
     @Override

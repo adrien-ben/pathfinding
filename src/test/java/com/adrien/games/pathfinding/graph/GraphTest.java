@@ -14,8 +14,8 @@ public class GraphTest {
     private static final Position VERTEX0 = new Position(0, 0);
     private static final Position VERTEX1 = new Position(0, 1);
     private static final Position VERTEX2 = new Position(0, 2);
-    private static final Edge EDGE0 = new Edge(0);
-    private static final Edge EDGE1 = new Edge(1);
+    private static final Edge EDGE0 = new Edge(0.0);
+    private static final Edge EDGE1 = new Edge(1.0);
 
     @Test
     public void itShouldAddVertex() {

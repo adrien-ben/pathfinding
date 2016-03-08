@@ -7,18 +7,27 @@ import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 /**
- * This class purpose is to find the shortest way between to vertices of a graph.
+ * This class purpose is to find a way between to vertices of a graph.
  */
 public class PathFinder {
 
-    public <T> List<T> findPath(Graph<T> graph, T start, T goal, BiFunction<T, T, Integer> heuristicFunction) {
+    /**
+     * Finds a path between the vertices of a graph.
+     * This method implements the A* (a star) algorithm.
+     * @param graph The graph in which to find a path.
+     * @param start The starting vertex.
+     * @param goal The goal vertex.
+     * @param heuristicFunction The heuristic function used to estimate the distance between a vertex and the goal vertex.
+     * @return The path between the two vertices represented by a list of vertices. An empty list is no path could be found.
+     */
+    public static <T> List<T> findPath(Graph<T> graph, T start, T goal, BiFunction<T, T, Double> heuristicFunction) {
         Objects.requireNonNull(graph);
         Objects.requireNonNull(start);
         Objects.requireNonNull(goal);
         Objects.requireNonNull(heuristicFunction);
         List<T> path = new ArrayList<>();
         NavigableSet<Node<T>> openedList = new TreeSet<>((node1, node2) -> node1.getScore() - node2.getScore() <= 0 ? -1 : 1);
-        openedList.add(new Node<>(0, 0, null, start));
+        openedList.add(new Node<>(0.0, 0.0, null, start));
         Map<T, Node<T>> closedList = new HashMap<>();
         while (!openedList.isEmpty()) {
             Node<T> currentNode = openedList.pollFirst();
@@ -46,7 +55,12 @@ public class PathFinder {
         return path;
     }
 
-    private <T> List<T> reconstructPath(Node<T> last) {
+    /**
+     * Reconstructs the path once the algorithm found one.
+     * @param last The last node.
+     * @return The path.
+     */
+    private static <T> List<T> reconstructPath(Node<T> last) {
         List<T> positions = new ArrayList<>();
         Node<T> next = last;
         while (!Objects.isNull(next)) {
@@ -57,38 +71,41 @@ public class PathFinder {
         return positions;
     }
 
+    /**
+     * Inner class used to store visited vertices, its score, and its predecessor.
+     */
     private static class Node<T> {
-        private Integer cost;
-        private Integer heuristic;
+        private Double cost;
+        private Double heuristic;
         private Node<T> previous;
         private final T vertex;
 
-        public Node(Integer cost, Integer heuristic, Node<T> previous, T vertex) {
+        public Node(Double cost, Double heuristic, Node<T> previous, T vertex) {
             this.cost = Objects.requireNonNull(cost);
             this.heuristic = Objects.requireNonNull(heuristic);
             this.previous = previous;
             this.vertex = Objects.requireNonNull(vertex);
         }
 
-        public Integer getScore() {
+        public Double getScore() {
             return cost + heuristic;
         }
 
 
 
-        public Integer getCost() {
+        public Double getCost() {
             return cost;
         }
 
-        public void setCost(Integer cost) {
+        public void setCost(Double cost) {
             this.cost = Objects.requireNonNull(cost);
         }
 
-        public Integer getHeuristic() {
+        public Double getHeuristic() {
             return heuristic;
         }
 
-        public void setHeuristic(Integer heuristic) {
+        public void setHeuristic(Double heuristic) {
             this.heuristic = Objects.requireNonNull(heuristic);
         }
 

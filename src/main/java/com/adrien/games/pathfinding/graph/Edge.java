@@ -10,9 +10,9 @@ import java.util.Objects;
  */
 public class Edge {
 
-    private Integer cost;
+    private Double cost;
 
-    public Edge(Integer cost) {
+    public Edge(Double cost) {
         this.cost = Objects.requireNonNull(cost);
     }
 
@@ -36,11 +36,11 @@ public class Edge {
         return new HashCodeBuilder(17, 37).append(cost).toHashCode();
     }
 
-    public Integer getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public void setCost(Integer cost) {
+    public void setCost(Double cost) {
         this.cost = Objects.requireNonNull(cost);
     }
 }

@@ -14,8 +14,6 @@ import java.util.List;
  */
 public class PathFinderTest {
 
-    private PathFinder pathFinder = new PathFinder();
-
     @Test
     public void itShouldFindShortestPath() {
         Graph<Position> graph = new Graph<>();
@@ -38,30 +36,30 @@ public class PathFinderTest {
         graph.addVertex(e);
         graph.addVertex(f);
 
-        graph.addEdge(a, b, new Edge(1));
-        graph.addEdge(a, d, new Edge(1));
-        graph.addEdge(b, a, new Edge(1));
-        graph.addEdge(b, c, new Edge(1));
-        graph.addEdge(b, e, new Edge(1));
-        graph.addEdge(c ,b , new Edge(1));
-        graph.addEdge(c ,f , new Edge(1));
-        graph.addEdge(d ,a , new Edge(1));
-        graph.addEdge(d ,e , new Edge(1));
-        graph.addEdge(d ,start , new Edge(1));
-        graph.addEdge(e ,b , new Edge(1));
-        graph.addEdge(e ,d , new Edge(1));
-        graph.addEdge(e ,f , new Edge(1));
-        graph.addEdge(f ,c , new Edge(1));
-        graph.addEdge(f ,e , new Edge(1));
-        graph.addEdge(f ,goal , new Edge(1));
-        graph.addEdge(start, d, new Edge(1));
-        graph.addEdge(goal, f, new Edge(1));
+        graph.addEdge(a, b, new Edge(1.0));
+        graph.addEdge(a, d, new Edge(1.0));
+        graph.addEdge(b, a, new Edge(1.0));
+        graph.addEdge(b, c, new Edge(1.0));
+        graph.addEdge(b, e, new Edge(1.0));
+        graph.addEdge(c ,b , new Edge(1.0));
+        graph.addEdge(c ,f , new Edge(1.0));
+        graph.addEdge(d ,a , new Edge(1.0));
+        graph.addEdge(d ,e , new Edge(1.0));
+        graph.addEdge(d ,start , new Edge(1.0));
+        graph.addEdge(e ,b , new Edge(1.0));
+        graph.addEdge(e ,d , new Edge(1.0));
+        graph.addEdge(e ,f , new Edge(1.0));
+        graph.addEdge(f ,c , new Edge(1.0));
+        graph.addEdge(f ,e , new Edge(1.0));
+        graph.addEdge(f ,goal , new Edge(1.0));
+        graph.addEdge(start, d, new Edge(1.0));
+        graph.addEdge(goal, f, new Edge(1.0));
 
-        List<Position> path = pathFinder.findPath(
+        List<Position> path = PathFinder.findPath(
                 graph,
                 start,
                 goal,
-                (position, position2) -> Math.abs(position2.getX() - position.getX()) + Math.abs(position2.getY() - position.getY()));
+                Position::computeManhattanDistance);
 
         Assert.assertNotNull(path);
         Assert.assertEquals(5, path.size());
@@ -79,11 +77,11 @@ public class PathFinderTest {
         Position vertex1 = new Position(0, 1);
         graph.addVertex(vertex0);
         graph.addVertex(vertex1);
-        List<Position> path = pathFinder.findPath(
+        List<Position> path = PathFinder.findPath(
                 graph,
                 vertex0,
                 vertex1,
-                (position, position2) -> Math.abs(position2.getX() - position.getX()) + Math.abs(position2.getY() - position.getY()));
+                Position::computeManhattanDistance);
         Assert.assertNotNull(path);
         Assert.assertTrue(path.isEmpty());
     }
