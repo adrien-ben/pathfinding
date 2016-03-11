@@ -3,7 +3,6 @@ package com.adrien.games.pathfinding;
 import com.adrien.games.pathfinding.commons.Position;
 import com.adrien.games.pathfinding.graph.Edge;
 import com.adrien.games.pathfinding.graph.Graph;
-import javafx.geometry.Pos;
 import org.junit.Assert;
 import org.junit.Test;
 
