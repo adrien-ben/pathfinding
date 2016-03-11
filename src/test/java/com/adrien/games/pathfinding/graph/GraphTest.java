@@ -66,6 +66,66 @@ public class GraphTest {
         graph.addEdge(VERTEX0, VERTEX1, EDGE1);
     }
 
+
+    @Test
+    public void itShouldRemoveVertex() {
+        Graph<Position> graph = new Graph<>();
+        graph.addVertex(VERTEX0);
+        graph.removeVertex(VERTEX0);
+        Assert.assertFalse(graph.containsVertex(VERTEX0));
+    }
+
+    @Test
+    public void itShouldRemoveEdgesWhenVertexIsRemoved() {
+        Graph<Position> graph = new Graph<>();
+        graph.addVertex(VERTEX0);
+        graph.addVertex(VERTEX1);
+        graph.addEdge(VERTEX0, VERTEX1, EDGE0);
+        graph.removeVertex(VERTEX1);
+        Map<Position, Edge> neighbors = graph.getNeighbors(VERTEX0);
+        Assert.assertNotNull(neighbors);
+        Assert.assertTrue(neighbors.isEmpty());
+
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void itShouldFailToRemoveNonExistentVertex() {
+        Graph<Position> graph = new Graph<>();
+        graph.removeVertex(VERTEX0);
+    }
+
+    @Test
+    public void itShouldRemoveEdge() {
+        Graph<Position> graph = new Graph<>();
+        graph.addVertex(VERTEX0);
+        graph.addVertex(VERTEX1);
+        graph.addEdge(VERTEX0, VERTEX1, EDGE0);
+        graph.removeEdge(VERTEX0, VERTEX1);
+        Assert.assertFalse(graph.hasEdge(VERTEX0, VERTEX1));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void itShouldFailToRemoveEdgeWhenSourceVertexIsNotInGraph() {
+        Graph<Position> graph = new Graph<>();
+        graph.addVertex(VERTEX1);
+        graph.removeEdge(VERTEX0, VERTEX1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void itShouldFailToRemoveEdgeWhenTargetVertexIsNotInGraph() {
+        Graph<Position> graph = new Graph<>();
+        graph.addVertex(VERTEX0);
+        graph.removeEdge(VERTEX0, VERTEX1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void itShouldFailToRemoveNonExistentEdge() {
+        Graph<Position> graph = new Graph<>();
+        graph.addVertex(VERTEX0);
+        graph.addVertex(VERTEX1);
+        graph.removeEdge(VERTEX0, VERTEX1);
+    }
+
     @Test
     public void itShouldGetNeighbors() {
         Graph<Position> graph = new Graph<>();
@@ -88,5 +148,4 @@ public class GraphTest {
         Graph<Position> graph = new Graph<>();
         graph.getNeighbors(VERTEX0);
     }
-
 }

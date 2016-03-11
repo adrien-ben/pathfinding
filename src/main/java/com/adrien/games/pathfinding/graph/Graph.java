@@ -1,5 +1,8 @@
 package com.adrien.games.pathfinding.graph;
 
+import org.apache.commons.lang3.NotImplementedException;
+import sun.security.provider.certpath.Vertex;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -43,6 +46,38 @@ public class Graph<T> {
             throw new IllegalArgumentException("Impossible to add edge '" + edge + "' between vertices '" + source + "' and '" + target + "''. Multiple edges are not supported.");
         }
         graph.get(source).put(target, edge);
+    }
+
+    /**
+     * Removes a vertex from the graph.
+     * The vertex must be in graph.
+     * @param vertex The vertex to remove.
+     */
+    public void removeVertex(T vertex) {
+        Objects.requireNonNull(vertex);
+        if(!containsVertex(vertex)) {
+            throw new IllegalArgumentException("Impossible to remove vertex '" + vertex + "'. Vertex is not in graph.");
+        }
+        graph.remove(vertex);
+        graph.values().stream().forEach(map -> map.remove(vertex));
+    }
+
+    /**
+     * Removes an edge between two nodes of a graph.
+     * The two vertex must be in the graph.
+     * @param source The source vertex.
+     * @param target The target vertex.
+     */
+    public void removeEdge(T source, T target) {
+        Objects.requireNonNull(source);
+        Objects.requireNonNull(target);
+        if(!containsVertex(source) || !containsVertex(target)) {
+            throw new IllegalArgumentException("Impossible to remove edge between vertices '" + source + "' and '" + target + "'. Both vertices must be in the graph.");
+        }
+        if(!hasEdge(source, target)) {
+            throw new IllegalArgumentException("Impossible to remove edge between vertices '" + source + "' and '" + target + "'. The edge does not exist.");
+        }
+        graph.get(source).remove(target);
     }
 
     /**
